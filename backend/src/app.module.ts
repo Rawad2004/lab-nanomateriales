@@ -4,12 +4,13 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
-import { ReactivosModule } from './modules/reactivos/reactivos.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { EquipamientoModule } from './modules/equipamiento/equipamiento.module';
-import { NanomaterialesModule } from './modules/nanomateriales/nanomateriales.module';
-import { OrdenesModule } from './modules/ordenes/ordenes.module';
+
 import { ConfigModule } from '@nestjs/config';
+import { EquipmentModule } from './modules/equipment/equipment.module';
+import { NanomaterialsModule } from './modules/nanomaterials/nanomaterials.module';
+import { ReagentsModule } from './modules/reagents/reagents.module';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @Module({
   imports: [
@@ -29,11 +30,12 @@ import { ConfigModule } from '@nestjs/config';
     }),
     AuthModule,
     UsersModule,
-    ReactivosModule,
     DashboardModule,
-    EquipamientoModule,
-    NanomaterialesModule,
-    OrdenesModule,
+    EquipmentModule,
+    NanomaterialsModule,
+    ReagentsModule,
+    UsersModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
