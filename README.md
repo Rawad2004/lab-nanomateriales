@@ -142,45 +142,46 @@ Sin un sistema, esto se traduce en stock vencido sin detectar, órdenes que se a
 
 ## 📁 Estructura del Monorepo
 
+```
 lab-nanomateriales/
-├── backend/                  # API NestJS + MySQL
+├── backend/                      # API NestJS + MySQL
 │   ├── src/
 │   │   ├── modules/
-│   │   │   ├── auth/         # JWT, login, guards, roles
-│   │   │   ├── users/        # CRUD usuarios (admin)
-│   │   │   ├── reactivos/    # Inventario químico
-│   │   │   ├── nanomateriales/  # Catálogo
-│   │   │   ├── equipamiento/ # Equipos del laboratorio
-│   │   │   ├── ordenes/      # Órdenes de síntesis (state machine)
-│   │   │   └── dashboard/    # Endpoint de resumen
-│   │   ├── common/           # Decorators, guards, filters compartidos
-│   │   ├── database/         # Seed scripts, migraciones
-│   │   ├── config/           # Configuración tipada
+│   │   │   ├── auth/             # JWT, login, guards, roles
+│   │   │   ├── users/            # CRUD usuarios (admin)
+│   │   │   ├── reactivos/        # Inventario químico
+│   │   │   ├── nanomateriales/   # Catálogo
+│   │   │   ├── equipamiento/     # Equipos del laboratorio
+│   │   │   ├── ordenes/          # Órdenes de síntesis (state machine)
+│   │   │   └── dashboard/        # Endpoint de resumen
+│   │   ├── common/               # Decorators, guards, filters compartidos
+│   │   ├── database/             # Seed scripts, migraciones
+│   │   ├── config/               # Configuración tipada
 │   │   └── main.ts
-│   ├── test/                 # Tests e2e
-│   ├── docker-compose.yml    # MySQL local
+│   ├── test/                     # Tests e2e
+│   ├── docker-compose.yml        # MySQL local
 │   ├── package.json
 │   └── README.md
 │
-├── frontend/                 # SPA React + Vite
+├── frontend/                     # SPA React + Vite
 │   ├── src/
-│   │   ├── components/       # UI reutilizable
-│   │   ├── pages/            # Vistas (Dashboard, Login, Reactivos, etc.)
-│   │   ├── services/         # Clientes Axios por módulo
-│   │   ├── hooks/            # useAuth, useApi, etc.
-│   │   ├── context/          # AuthContext
-│   │   ├── types/            # Tipos compartidos con backend
+│   │   ├── components/           # UI reutilizable
+│   │   ├── pages/                # Vistas (Dashboard, Login, Reactivos, etc.)
+│   │   ├── services/             # Clientes Axios por módulo
+│   │   ├── hooks/                # useAuth, useApi, etc.
+│   │   ├── context/              # AuthContext
+│   │   ├── types/                # Tipos compartidos con backend
 │   │   ├── utils/
 │   │   ├── App.tsx
 │   │   └── main.tsx
 │   ├── package.json
 │   └── vite.config.ts
 │
-├── docs/                     # Diagramas, decisiones de arquitectura
+├── docs/                         # Diagramas, decisiones de arquitectura
 ├── .gitignore
 ├── LICENSE
 └── README.md
----
+```
 
 ## 🚀 Setup local
 
