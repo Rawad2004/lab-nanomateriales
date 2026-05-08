@@ -20,8 +20,6 @@ export class UsersService {
       password: await this.hashService.hash(createUserDto.password),
     });
 
-    console.log(user);
-
     await this.userRepository.save(user);
 
     return 'User Successfully Registered';
@@ -29,13 +27,12 @@ export class UsersService {
 
   async findOneByEmail(email: string) {
     const user = await this.userRepository.findOneBy({ email });
-    console.log(user);
 
     return user;
   }
 
   async findOneById(id: number): Promise<User | null> {
-    return this.userRepository.findOne({
+    return await this.userRepository.findOne({
       where: { id },
       select: {
         id: true,
