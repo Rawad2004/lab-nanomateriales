@@ -17,6 +17,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('NanoLab API')
     .setVersion('1.0')
     .setDescription('API para la gestión de un laboratorio de nanomateriales')
