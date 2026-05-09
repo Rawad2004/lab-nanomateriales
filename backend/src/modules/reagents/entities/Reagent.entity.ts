@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Unit } from '../enums/Unit.enum';
 
 @Entity()
@@ -9,7 +14,7 @@ export class Reagent {
   @Column({ nullable: false })
   name!: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   formula!: string;
 
   @Column({ nullable: false })
@@ -21,7 +26,7 @@ export class Reagent {
   @Column({ nullable: false })
   expirationDate!: Date;
 
-  @Column({ nullable: false })
+  @CreateDateColumn()
   entryDate!: Date;
 
   @Column({ type: 'text', nullable: true })

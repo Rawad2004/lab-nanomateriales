@@ -4,12 +4,12 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { HashService } from 'src/common/services/hash.service';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from '../users/enums/Role.enum';
+import { UsersService } from '../users/services/users.service';
 
 export interface LoginResponse {
   user: {
