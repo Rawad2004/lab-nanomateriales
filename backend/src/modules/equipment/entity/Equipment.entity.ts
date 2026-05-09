@@ -12,7 +12,11 @@ export class Equipment {
   @Column({ nullable: false })
   type!: string;
 
-  @Column({ nullable: false, type: 'enum', enum: StateEquipment })
+  @Column({
+    type: 'enum',
+    enum: StateEquipment,
+    default: StateEquipment.AVAILABLE,
+  })
   state!: StateEquipment;
 
   @Column({ type: 'date', nullable: true })
