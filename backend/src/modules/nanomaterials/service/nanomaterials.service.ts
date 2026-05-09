@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Nanomaterial } from './entity/Nanomaterial.entity';
+import { Nanomaterial } from '../entity/Nanomaterial.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateNanomaterialDto } from './dto/create-nanomaterial.dto';
-import { UpdateNanomaterialDto } from './dto/update-nanomaterial.dto';
+import { CreateNanomaterialDto } from '../dto/create-nanomaterial.dto';
+import { UpdateNanomaterialDto } from '../dto/update-nanomaterial.dto';
 
 @Injectable()
 export class NanomaterialsService {
@@ -46,7 +46,7 @@ export class NanomaterialsService {
       );
     }
 
-    return nanomaterial;
+    return this.nanomaterialRepository.save(nanomaterial);
   }
 
   async remove(id: number): Promise<void> {
