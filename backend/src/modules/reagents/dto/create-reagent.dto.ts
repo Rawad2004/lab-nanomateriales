@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import { Unit } from '../enums/Unit.enum';
 
-export class CreateReagent {
+export class CreateReagentDto {
   @ApiProperty({
     description: 'Nombre del reactivo químico.',
     example: 'Ácido sulfúrico',

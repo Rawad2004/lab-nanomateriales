@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Reagent } from '../entities/Reagent.entity';
-import { CreateReagent } from '../dto/create-reagent.dto';
-import { UpdateReagent } from '../dto/update-reagent.dto';
+import { CreateReagentDto } from '../dto/create-reagent.dto';
+import { UpdateReagentDto } from '../dto/update-reagent.dto';
 
 @Injectable()
 export class ReagentsService {
@@ -16,28 +16,30 @@ export class ReagentsService {
     const reagent = await this.reagentRepository.findOneBy({ id });
 
     if (!reagent) {
-      throw new NotFoundException(`Reagent con ${id} no encontrado`);
+      throw new NotFoundException(`Reagent con ID ${id} no encontrado`);
     }
 
     return reagent;
   }
 
-  async create(dto: CreateReagent): Promise<Reagent> {
+  async create(dto: CreateReagentDto): Promise<Reagent> {
     const reagent = this.reagentRepository.create(dto);
 
     return await this.reagentRepository.save(reagent);
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<void> {
     const result = await this.reagentRepository.delete(id);
-    return result;
+    if (result.affected === 0) {
+      throw new NotFoundException(`Reagent con ID ${id} no encontrado`);
+    }
   }
 
-  async update(id: number, dto: UpdateReagent): Promise<Reagent> {
+  async update(id: number, dto: UpdateReagentDto): Promise<Reagent> {
     const reagent = await this.reagentRepository.preload({ id, ...dto });
 
     if (!reagent) {
-      throw new NotFoundException(`Reagent con ${id} no encontrado`);
+      throw new NotFoundException(`Reagent con ID ${id} no encontrado`);
     }
 
     return this.reagentRepository.save(reagent);

@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/swagger';
-import { CreateReagent } from './create-reagent.dto';
+import { CreateReagentDto } from './create-reagent.dto';
 
-export class UpdateReagent extends PartialType(CreateReagent) {}
+export class UpdateReagentDto extends PartialType(CreateReagentDto) {}
