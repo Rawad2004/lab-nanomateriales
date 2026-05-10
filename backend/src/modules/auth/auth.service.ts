@@ -36,7 +36,13 @@ export class AuthService {
       throw new BadRequestException('User Already Exists');
     }
 
-    return await this.usersService.create(registerDto);
+    // Auto-registrados reciben rol SCIENTIST por default.
+    // Esta vía debería evaluarse para borrarse en Paso 9 — los usuarios
+    // deberían crearse vía POST /api/users por un admin.
+    return await this.usersService.create({
+      ...registerDto,
+      role: Role.SCIENTIST,
+    });
   }
 
   async login(loginDto: LoginDto): Promise<LoginResponse> {
@@ -44,6 +50,12 @@ export class AuthService {
 
     if (!user) {
       throw new NotFoundException('User Not found');
+    }
+
+    if (!user.isActive) {
+      throw new UnauthorizedException(
+        'Cuenta desactivada. Contacta a un administrador.',
+      );
     }
 
     const isMatch = await this.hashService.compare(
