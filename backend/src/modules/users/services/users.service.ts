@@ -19,11 +19,6 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  /**
-   * Crea un usuario nuevo. Si el email ya existe → 409 Conflict.
-   * El password se almacena hasheado con bcrypt; nunca en texto plano.
-   * Retorna el User creado SIN password.
-   */
   async create(createUserDto: CreateUserDto): Promise<User> {
     const existing = await this.userRepository.findOneBy({
       email: createUserDto.email,
@@ -44,10 +39,6 @@ export class UsersService {
     return this.stripPassword(saved);
   }
 
-  /**
-   * Lista usuarios. Por defecto solo activos.
-   * El password nunca se incluye en el query (gracias a `select`).
-   */
   async findAll(includeInactive = false): Promise<User[]> {
     return this.userRepository.find({
       where: includeInactive ? {} : { isActive: true },
@@ -55,19 +46,10 @@ export class UsersService {
     });
   }
 
-  /**
-   * Busca un usuario por email INCLUYENDO el password.
-   * Es un método interno usado por AuthService para login —
-   * NO debe exponerse por API porque retorna el hash.
-   */
   async findOneByEmail(email: string): Promise<User | null> {
     return this.userRepository.findOneBy({ email });
   }
 
-  /**
-   * Busca un usuario por id, EXCLUYENDO el password.
-   * Usado por JwtStrategy y por endpoints públicos.
-   */
   async findOneById(id: number): Promise<User | null> {
     return this.userRepository.findOne({
       where: { id },
@@ -75,11 +57,6 @@ export class UsersService {
     });
   }
 
-  /**
-   * Actualiza name, email o role de un usuario.
-   * NO permite cambiar password (excluido del DTO).
-   * Si se cambia el email, valida que no esté en uso por OTRO usuario.
-   */
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     if (updateUserDto.email) {
       const existing = await this.userRepository.findOneBy({
@@ -102,11 +79,6 @@ export class UsersService {
     return this.stripPassword(saved);
   }
 
-  /**
-   * Soft delete: marca isActive = false.
-   * El usuario queda en BD (para no romper FKs en órdenes históricas)
-   * pero no podrá loguearse ni aparecer en listados activos.
-   */
   async deactivate(id: number): Promise<User> {
     const user = await this.findOneById(id);
 
@@ -118,10 +90,6 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  /**
-   * Helper: object con los campos "públicos" (sin password) para usar en `select`.
-   * Centraliza la definición — si agregas un campo nuevo a User, lo agregas acá.
-   */
   private publicFields(): {
     id: true;
     email: true;
