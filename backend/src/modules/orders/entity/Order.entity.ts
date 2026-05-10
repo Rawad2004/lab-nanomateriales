@@ -5,24 +5,23 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { OrderState } from '../enums/OrderState.enum';
+import { OrderReagent } from './OrderReagent.entity';
+import { OrderEquipment } from './OrderEquipment.entity';
 
 @Entity()
 export class Order {
   @PrimaryGeneratedColumn('increment')
   id!: number;
 
-  @ManyToOne(() => Nanomaterial, {
-    nullable: false,
-  })
+  @ManyToOne(() => Nanomaterial, { nullable: false })
   nanomaterial!: Nanomaterial;
 
-  @ManyToOne(() => User, {
-    nullable: false,
-  })
+  @ManyToOne(() => User, { nullable: false })
   createdBy!: User;
 
   @Column({
@@ -50,4 +49,16 @@ export class Order {
 
   @ManyToOne(() => User, { nullable: true })
   approvedBy: User | null = null;
+
+  @OneToMany(() => OrderReagent, (orderReagent) => orderReagent.order, {
+    cascade: true,
+    eager: false,
+  })
+  reagents!: OrderReagent[];
+
+  @OneToMany(() => OrderEquipment, (orderEquipment) => orderEquipment.order, {
+    cascade: true,
+    eager: false,
+  })
+  equipments!: OrderEquipment[];
 }
