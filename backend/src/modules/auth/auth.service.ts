@@ -52,6 +52,12 @@ export class AuthService {
       throw new NotFoundException('User Not found');
     }
 
+    if (!user.isActive) {
+      throw new UnauthorizedException(
+        'Cuenta desactivada. Contacta a un administrador.',
+      );
+    }
+
     const isMatch = await this.hashService.compare(
       loginDto.password,
       user.password,
