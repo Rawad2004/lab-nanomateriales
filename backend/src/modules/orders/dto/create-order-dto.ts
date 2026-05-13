@@ -27,10 +27,10 @@ export class CreateOrderDto {
   @ArrayMinSize(1)
   @ValidateNested({ each: true })
   @Type(() => OrderEquipmentDto)
-  equipment!: OrderEquipmentDto[];
+  equipments!: OrderEquipmentDto[];
 
   @IsOptional()
   @IsString()
   @MaxLength(500)
-  observations!: string;
+  observations?: string;
 }

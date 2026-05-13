@@ -34,7 +34,6 @@ import { OrdersModule } from './modules/orders/orders.module';
     EquipmentModule,
     NanomaterialsModule,
     ReagentsModule,
-    UsersModule,
     OrdersModule,
   ],
   controllers: [AppController],
