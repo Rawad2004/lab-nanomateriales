@@ -7,7 +7,10 @@ export class OrderReagent {
   @PrimaryGeneratedColumn('increment')
   id!: number;
 
-  @ManyToOne(() => Order, { nullable: false })
+  @ManyToOne(() => Order, (order) => order.reagents, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   order!: Order;
 
   @ManyToOne(() => Reagent, { nullable: false })

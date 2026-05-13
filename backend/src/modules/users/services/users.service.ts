@@ -46,8 +46,19 @@ export class UsersService {
     });
   }
 
+  /**
+   * Busca un usuario por email INCLUYENDO password.
+   * Solo para login (AuthService). NO exponer por API.
+   *
+   * `addSelect('user.password')` es necesario porque la columna password
+   * tiene `select: false` en la entidad para que no se traiga por default.
+   */
   async findOneByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findOneBy({ email });
+    return this.userRepository
+      .createQueryBuilder('user')
+      .addSelect('user.password')
+      .where('user.email = :email', { email })
+      .getOne();
   }
 
   async findOneById(id: number): Promise<User | null> {

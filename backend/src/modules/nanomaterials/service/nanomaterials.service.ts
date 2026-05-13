@@ -30,8 +30,8 @@ export class NanomaterialsService {
     return nanomaterial;
   }
 
-  async findAll() {
-    return await this.nanomaterialRepository.find();
+  async findAll(): Promise<Nanomaterial[]> {
+    return this.nanomaterialRepository.find();
   }
 
   async update(id: number, dto: UpdateNanomaterialDto): Promise<Nanomaterial> {
